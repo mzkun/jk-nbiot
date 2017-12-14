@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     
+	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd     
+	http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd     
+	http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/mvc   
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 配置扫描注解,不扫描@Controller注解 -->
+	<context:component-scan base-package="com.goldcard.nbiot">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc.properties</value>
+				<value>classpath:config/common.properties</value>
+				<value>classpath:config/jedis.properties</value>
+				<value>classpath:config/jms.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="config"></property>
+	</bean>
+	
+	<bean id="nbiotCallBackServer" class="com.goldcard.nbiot.web.home.jetty.server.NbiotCallBackServer" init-method="start" destroy-method="destroy">
+	     <property name="https_port" value="${https_port}"></property>
+	     <property name="http_port" value="${http_port}"></property>
+	     <property name="corePoolSize" value="${corePoolSize}"></property>
+	     <property name="maximumPoolSize" value="${maximumPoolSize}"></property>
+	     <property name="keepAliveTime" value="${keepAliveTime}"></property>
+	     <property name="acceptors" value="${acceptors}"></property>
+	     <property name="selectors" value="${selectors}"></property>
+	     <property name="requestProcessorHandler" ref="requestProcessorHandler" />
+	</bean>
+
+<!-- 	<bean id="processors" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="sourceMap">
+			<map>
+				<entry key="HwIot" value-ref="hwIotPorcessorImpl"></entry>
+			</map>
+		</property>
+	</bean>   -->
+	
+	<bean id="requestProcessorHandler" class="com.goldcard.nbiot.web.home.jetty.handler.RequestProcessorHandler">
+		<property name="processors">
+			<map>
+				<entry key="HwIoT" value-ref="hwIotPorcessorImpl">
+				</entry>
+			</map>
+		</property>
+	</bean>
+    
+    <import resource="classpath:/config/spring/spring-job.xml"  />
+	<import resource="classpath*:/spring/*.xml" />
+
+</beans>

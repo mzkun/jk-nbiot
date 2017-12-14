@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     
+	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd     
+	http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd     
+	http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<context:annotation-config />
+	<bean id="handlerMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="sourceMap">
+			<map>
+				<entry key="HWIOT" value-ref="hwSouthClientHandler" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 给Iot平台发送消息的线程池 -->
+	<bean id="sendToIotExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数  -->
+	    <property name="corePoolSize" value="${sendIot.corePoolSize}" />
+	    <!-- 最大线程数 -->
+	    <property name="maxPoolSize" value="${sendIot.maxPoolSize}" />
+	    <!-- 队列最大长度 -->
+	    <property name="queueCapacity" value="${sendIot.queueCapacity}" />
+	    <!-- 线程池维护线程所允许的空闲时间 -->
+	    <!-- <property name="keepAliveSeconds" value="300" /> -->
+	    <property name="WaitForTasksToCompleteOnShutdown" value="${sendIot.WaitForTasksToCompleteOnShutdown}" />
+	    <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+	    <property name="rejectedExecutionHandler">
+	        <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+	    </property>
+	</bean>
+</beans>

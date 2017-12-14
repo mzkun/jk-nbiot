@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goldcard.nbiot.common.dal.daointerface.DeviceDao">
+
+<select id="getDeviceList" resultType="com.goldcard.nbiot.common.dal.dataobject.DeviceInfoDO" parameterType="java.util.Map">
+	 select * from (
+	  	SELECT n.deviceId,n.imei,n.platform,CONCAT(p.platform,'-',p.location) as platformDes,n.psk,n.gmt_create,n.timeout
+	  	from tb_nbiot_device n, tb_nbiot_platform p 
+	  	where n.platform = p.code) de 
+	  	where 1=1
+        <if test="platform != null">  
+        <!-- tti.ORDER_ID like '%'||#{deviceId}||'%' -->
+            and de.platform = #{platform}
+        </if>  
+        <if test="imei != null">  
+        <!-- tti.ORDER_ID like '%'||#{deviceId}||'%' -->
+            and de.imei like concat('%',concat(#{imei},'%'))
+        </if>  
+        order by de.gmt_create desc
+</select>
+
+<select id="getDeviceByDeviceId" resultType="com.goldcard.nbiot.common.dal.dataobject.DeviceInfoDO" parameterType="java.lang.String">
+	select de.id,de.deviceId,de.imei,de.timeout,de.psk, de.platform, de.company_code, de.gmt_create, de.gmt_modified
+	 from tb_nbiot_device de where de.deviceId=#{deviceId}
+</select>
+
+<select id="getCountByImei" resultType="java.lang.Integer" parameterType="java.lang.String">
+	select count(1) from tb_nbiot_device where imei=#{imei}
+</select>
+
+<insert id="saveDevice" parameterType="com.goldcard.nbiot.common.dal.dataobject.DeviceInfoDO">
+	insert into tb_nbiot_device(id,deviceId,imei,timeout,psk,platform,company_code,gmt_create) 
+               values(#{id}, #{deviceId},#{imei},#{timeout},#{psk},#{platform},#{companyCode},now())
+</insert>
+<delete id="deleteDeviceByDeviceId" parameterType="java.lang.String">
+
+	delete from tb_nbiot_device where deviceId=#{deviceId}
+</delete>
+
+<select id="selectByDevice" resultType="com.goldcard.nbiot.common.dal.dataobject.DeviceInfoDO" parameterType="java.lang.String">
+	SELECT *
+	FROM
+		tb_nbiot_device
+	WHERE 
+		deviceid = #{deviceid}
+</select>
+</mapper>

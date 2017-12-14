@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+body {
+	background-color: #d6e9fe;
+	margin: 0;
+	padding: 0;
+}
+
+.login-layout {
+	background: url(../image/login-bg-2.png) center center;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.login-panel {
+	background: url(../image/login-panel.png) center center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 459px;
+	height: 336px;
+	margin-top: -168px;
+	margin-left: -230px;
+}
+
+.login-logo {
+	background-image: url(../image/icons-logo2.png);
+	background-position: 16px 12px;
+	height: 70px;
+	background-repeat: no-repeat;
+}
+
+.login-logo-title {
+	height: 72px;
+	margin-left: 210px;
+	line-height: 82px;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	word-spacing: 8px;
+	letter-spacing: 1px;
+}
+
+.login-main {
+	margin: 54px 0 0 111px
+}
+
+.login-main p {
+	margin-top: 15px;
+	margin-bottom: 15px
+}
+
+.login-button {
+	margin-top: 20px;
+	padding-left: 200px
+}
+
+.login-button a {
+	background-image: url(../image/icons-login.png);
+	background-repeat: no-repeat;
+	background-position: 0 -73px;
+	display: inline-block;
+	width: 86px;
+	height: 24px;
+	line-height: 24px;
+	zoom: 1;
+	color: White !important;
+	text-align: center;
+	font-size: 12px;
+}
+
+.login-button a:hover {
+	background-position: 0 -100px;
+	color: White !important;
+}
+
+.ic1 {
+	background-image: url(../image/icons-login.png);
+	background-repeat: no-repeat;
+	background-position: -350px -47px;
+	float: left;
+	display: inline-block;
+	width: 89px;
+	height: 26px;
+	zoom: 1;
+}
+
+.ic2 {
+	background-image: url(../image/icons-login.png);
+	background-repeat: no-repeat;
+	background-position: -350px -81px;
+	float: left;
+	display: inline-block;
+	width: 89px;
+	height: 26px;
+	zoom: 1;
+}
+
+.footer {
+	color: White;
+	text-align: center;
+	margin-top: 24px;
+	font: 12px/1.5 tahoma, helvetica, clean, sans-serif;
+}
+
+#loginfrm input {
+	padding: 4px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 13px;
+	width: 168px
+}

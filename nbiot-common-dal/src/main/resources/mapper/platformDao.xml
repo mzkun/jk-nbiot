@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goldcard.nbiot.common.dal.daointerface.PlatformDao">
+	<select id="getPlatformList" resultType="com.goldcard.nbiot.common.dal.dataobject.PlatformDo" parameterType="java.lang.String">
+		select id, code, platform, CONCAT(platform,'-',location) as platformDes, location, app_key, secret, gmt_create from tb_nbiot_platform 
+		where 1=1
+		<if test="code != null">
+			and code = #{code}
+		</if>
+		order by gmt_create desc
+	</select>
+	
+	<select id="getPlatformByCode" resultType="com.goldcard.nbiot.common.dal.dataobject.PlatformDo" parameterType="java.lang.String">
+		select id, code, platform, CONCAT(platform,'-',location) as platformDes, location, app_key, secret, gmt_create from tb_nbiot_platform 
+		where 1=1
+		<if test="code != null">
+			and code = #{code}
+		</if>
+	</select>
+	
+	<insert id="savePlatform" parameterType="com.goldcard.nbiot.common.dal.dataobject.PlatformDo">
+		insert into tb_nbiot_platform(id, code, platform, location, app_key, secret, gmt_create) 
+	    values(#{id}, #{code},#{platform},#{location},#{app_key},#{secret},now())
+	</insert>
+</mapper>

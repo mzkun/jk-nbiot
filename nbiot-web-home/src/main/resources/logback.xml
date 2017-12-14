@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+ <configuration    scan="true" scanPeriod="1800 seconds" debug="false" >
+      <property scope="context" name="FILE_NAME" value="jk-nbiot" />
+      <timestamp key="byDay" datePattern="yyyy-MM-dd" />
+      <substitutionProperty name="logbase" value="${catalina.base}/logs/" />
+     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+         <encoder>
+             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+             </pattern>
+         </encoder>
+     </appender>
+    
+     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/${FILE_NAME}.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/${FILE_NAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>  
+ 	</appender>
+     
+     <appender name="jk-nbiot-common-dal" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/jk-nbiot-common-dal.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/jk-nbiot-common-dal-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>  
+ 	</appender>
+     
+     <appender name="jk-nbiot-core" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/jk-nbiot-core.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/jk-nbiot-core-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>  
+ 	 </appender>
+     
+     <appender name="jk-nbiot-manager" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/jk-nbiot-manager.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/jk-nbiot-manager-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>  
+ 	</appender>
+   
+    <appender name="jk-nbiot-web-home" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/jk-nbiot-web-home.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/jk-nbiot-web-home-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>  
+ 	</appender>
+
+ 	<appender name="common-error" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${logbase}/common-error.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${logbase}/%d{yyyy-MM-dd}/common-error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+            <maxHistory>365</maxHistory>  
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+                <MaxFileSize>10MB</MaxFileSize>  
+            </timeBasedFileNamingAndTriggeringPolicy>  
+        </rollingPolicy>  
+        <encoder charset="UTF-8">  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>  
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->  
+             <level>ERROR</level>  
+             <onMatch>ACCEPT</onMatch>  
+             <onMismatch>DENY</onMismatch>  
+         </filter>
+ 	</appender>
+                                 
+  <!--  <appender name="flume" class="com.gilt.flume.logback.FlumeLogstashV1Appender">
+         <flumeAgents>
+            192.168.140.131:44444
+         </flumeAgents>
+         <flumeProperties>
+             connect-timeout=40000;
+             request-timeout=80000
+         </flumeProperties>
+         <reportingWindow>1000</reportingWindow>
+         <additionalAvroHeaders>
+             myHeader=myValue
+         </additionalAvroHeaders>
+         <application>smapleapp</application>
+         <layout class="ch.qos.logback.classic.PatternLayout">
+             <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - \(%file:%line\) - %message%n%ex</pattern>
+         </layout>
+     </appender>
+      -->
+     <!--  <logger name="com.goldcard.nbiot.common.dal" level="INFO"  >
+         <appender-ref ref="jk-nbiot-common-dal" />
+     </logger>
+     
+      <logger name="com.goldcard.nbiot.core" level="INFO" >
+         <appender-ref ref="jk-nbiot-core" />
+     </logger>
+     
+     <logger name="com.goldcard.nbiot.manager" level="INFO" >
+         <appender-ref ref="jk-nbiot-manager" />
+     </logger>
+     
+     <logger name="com.goldcard.nbiot.web.home" level="INFO" >
+         <appender-ref ref="jk-nbiot-web-home" />
+     </logger>-->
+     <logger name="com.goldcard.nbiot" level="ERROR" >
+         <appender-ref ref="common-error" />
+     </logger>
+     <logger name="com.goldcard.nbiot" level="INFO" >
+         <appender-ref ref="file" />
+     </logger>
+     <root level="INFO">
+<!--          <appender-ref ref="STDOUT" /> -->
+     </root>
+ </configuration>
+

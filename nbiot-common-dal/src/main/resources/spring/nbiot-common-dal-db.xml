@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     
+	http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd     
+	http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-4.0.xsd     
+	http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="${jdbc_driverClassName}" />
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_username}" />
+		<property name="password" value="${jdbc_password}" />
+		<!-- 连接池最大使用连接数 -->
+		<property name="maxActive" value="${jdbc_maxActive}" />
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${jdbc_initialSize}" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${jdbc_maxWait}" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${jdbc_minIdle}" />
+		<!-- 自动清除无用连接 -->
+		<property name="removeAbandoned" value="${jdbc_removeAbandoned}" />
+		<!-- 清除无用连接的等待时间 -->
+		<property name="removeAbandonedTimeout" value="${jdbc_removeAbandonedTimeout}" />
+		<!-- 连接属性 -->
+		<property name="connectionProperties" value="${jdbc_connectionProperties}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 --> 
+  		<property name="minEvictableIdleTimeMillis" value="${jdbc_minEvictableIdleTimeMillis}" />
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 --> 
+  		<property name="validationQuery" value="${jdbc_validationQuery}" /> 
+  		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->  
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc_timeBetweenEvictionRunsMillis}" /> 
+  		<!-- 这里建议配置为TRUE，防止取到的连接不可用 --> 
+  		<property name="testOnBorrow" value="true" /> 
+  		<property name="testWhileIdle" value="true" /> 
+	</bean>
+
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.goldcard.nbiot.common.dal.daointerface" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 对数据源进行事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="txManager" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>

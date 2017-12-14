@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goldcard.nbiot.common.dal.daointerface.NBUrlDao">
+
+	<select id="getUrlList" resultType="com.goldcard.nbiot.common.dal.dataobject.NBUrlDO" parameterType="java.lang.String">
+		SELECT u.id,u.platform,CONCAT(p.platform,'-',p.location) as platformDes,u.fun_code,u.fun_desc,u.url,u.gmt_create 
+		from tb_nbiot_url u, tb_nbiot_platform p
+		where u.platform = p.code 
+		<if test="platform != null" >
+			and u.platform = #{platform}
+		</if>
+		order by u.gmt_create desc
+	</select>
+	
+	<select id="getUrlByPlatform" resultType="com.goldcard.nbiot.common.dal.dataobject.NBUrlDO" parameterType="java.lang.String">
+		select id,platform,fun_code,fun_desc,url,gmt_create from tb_nbiot_url 
+		where 1=1
+		<if test="platform != null">  
+			and platform = #{platform}
+        </if>
+        order by gmt_create desc
+	</select>
+	
+	<select id="getUrl" resultType="com.goldcard.nbiot.common.dal.dataobject.NBUrlDO" parameterType="java.lang.String">
+		select id,platform,fun_code,fun_desc,url,gmt_create from tb_nbiot_url
+		where id=#{id}
+	</select>
+	<insert id="saveUrl" parameterType="com.goldcard.nbiot.common.dal.dataobject.NBUrlDO">
+		insert into tb_nbiot_url(id,platform,fun_code,fun_desc,url,gmt_create) 
+	    values(#{id}, #{platform},#{fun_code},#{fun_desc},#{url},now())
+	</insert>
+
+	<update id="updateUrl" parameterType="com.goldcard.nbiot.common.dal.dataobject.NBUrlDO">
+		update tb_nbiot_url set url=#{url} , fun_code=#{fun_code}, fun_desc=#{fun_desc}
+		where id = #{id}
+	</update>
+</mapper>
