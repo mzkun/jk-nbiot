@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goldcard.nbiot.common.dal.daointerface.sys.RoleDao">
+
+	<select id="getRoleList" resultType="com.goldcard.nbiot.common.dal.dataobject.sys.RoleDO" parameterType="java.util.Map">
+		SELECT * FROM
+		sys_role r
+		WHERE 1=1
+		ORDER BY r.create_time DESC
+	</select>
+
+	<insert id="addRole" parameterType="com.goldcard.nbiot.common.dal.dataobject.sys.RoleDO">
+		INSERT INTO
+			sys_role(name, status, priority, remark, createId, create_time)
+		VALUES(#{name}, #{status}, #{priority}, #{remark}, #{createId}, now())
+	</insert>
+</mapper>

@@ -61,6 +61,7 @@
 	</bean>
     
     <import resource="classpath:/config/spring/spring-job.xml"  />
+	<!--<import resource="classpath:/config/spring/spring-shiro.xml" />-->
 	<import resource="classpath*:/spring/*.xml" />
 
 </beans>

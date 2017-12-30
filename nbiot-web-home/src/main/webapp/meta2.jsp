@@ -10,8 +10,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=path %>/js/jquery-easyui-1.4.3/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
-<link rel="stylesheet" href="js/jquery-easyui-portal/portal.css" type="text/css"></link>
-<script type="text/javascript" src="js/jquery-easyui-portal/jquery.portal.js" charset="utf-8"></script>
+<link rel="stylesheet" href="<%=path %>/js/jquery-easyui-portal/portal.css" type="text/css"></link>
+<script type="text/javascript" src="<%=path %>/js/jquery-easyui-portal/jquery.portal.js" charset="utf-8"></script>
 <script type="text/javascript">
 (function ($) {
     $.fn.serializeJson = function () {

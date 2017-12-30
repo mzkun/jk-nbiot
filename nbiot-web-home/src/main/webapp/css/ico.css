@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+.ico-menu{background: url('icons/ico-menu.png') no-repeat center center}
+.ico-role{background: url('icons/ico-role.png') no-repeat center center}
+.ico-user{background: url('icons/ico-user.png') no-repeat center center}
+.ico-log{background: url('icons/ico-log.png') no-repeat center center}
+.ico-dept{background: url('icons/ico-dept.png') no-repeat center center}
+.ico-delete{background: url('icons/ico-delete.png') no-repeat center center}
+.icon-application{
+	background:url('icons/application_osx_cascade.png') no-repeat center center;
+}
+.icon-application-add{
+	background:url('icons/application_osx_add.png') no-repeat center center;
+}
+.icon-plugin-add{
+	background:url('icons/plugin_add.png') no-repeat center center;
+}
