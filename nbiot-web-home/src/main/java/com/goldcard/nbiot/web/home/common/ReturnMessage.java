@@ -22,6 +22,4 @@ public class ReturnMessage {
 		this.message = message;
 	}
 	
-	
-
 }
